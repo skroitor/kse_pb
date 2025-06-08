@@ -1,0 +1,168 @@
+#Початковий рівень
+#1
+numbers = [2, 4, 7, 10, 24]
+total = sum(numbers)
+print ("сума чисел:", total)
+
+#2
+numbers = [4, 90, 10, 329, 2, 69]
+minimum = min(numbers)
+print ("найменше значення:", minimum)
+
+
+#3
+numbers = [1, 93, 86, 5, 27]
+reversed_list = list(reversed(numbers))
+print ("перевертання елементів:", reversed_list)
+
+
+#4
+numbers = [4, 93, 10, 27, 69]
+odd_numbers = [ y for y in numbers if y % 2 != 0 ]
+print ("всі непарні числа:", odd_numbers)
+
+
+#5
+numbers = [4, 90, 10, 329, 2, 69]
+number = 4
+multiplied = [x * number for x in numbers]
+print ("перемножені числа:", multiplied)
+
+#Легкий рівень
+#1
+numbers = [2, 68, 15, 7, 23]
+y = 7
+result = [x for x in numbers if x > y] 
+print ("більші числа за", y, ":", result)
+
+#2
+numbers = [2, 68, 15, 7, 23]
+positive_num = [x for x in numbers if x > 0]
+average = sum(positive_num) / len (positive_num) if positive_num else 0
+print ("середнє додатних чисел:", average)
+
+
+#3
+numbers = [2, 68, 15, 7, 23]
+X = 23
+negative_num = [x for x in numbers if x < X ]
+maximum = max (negative_num) if negative_num else None
+print ("макс. чисел менших за x", X, ":", negative_num)
+
+
+#4
+numbers = [2, 68, 15, 7, 23]
+Y = 2
+result = [x for x in numbers if x % Y == 0]
+total = sum(result)
+print("сума чисел, які ділятся на", Y, ":", total)
+
+
+#5
+numbers = [2, 6, 15, 7, 16]
+squares = [x ** 2 for x in numbers]
+print("числа в квадраті:", squares)
+
+
+#6
+numbers = [2, 6, -15, -7, 16]
+only_positive = [x for x in numbers if x > 0]
+print("лише додатні числа:", only_positive)
+
+
+#7
+all_words = ["пречудовий", "прегарний", "підводний", "приїжджий"]
+prefix = "пре"
+result = [word for word in all_words if word.startswith(prefix)]
+print("всі слова з префіксом ", prefix, ":", result)
+
+
+#8
+numbers = [7, 43, 8, 66, 39]
+N = 3
+sum_first = sum(numbers[:N])
+print(f"сума перших {N} чисел:", sum_first)
+
+
+#9
+words = ["mum", "dad", "bear", "madam"]
+result = [word for word in words if word == word [::-1]]
+print("Палідроми:", result)
+
+#10
+numbers = [35, 24, 4, 126,]
+divisor = 4
+result = [x % divisor == 0 for x in numbers]
+print("Подільність на", divisor, ":", result)
+
+
+#Середній рівень
+#1
+numbers = [27, 21, 99, 49, 33]
+u,y = (3,7)
+result = [x for x in numbers if x % u == 0 and x % y != 0 ]
+print("ділиться на", u, ",а не на", y, ":", result)
+
+
+#2
+lists = [[78], [65], [6]]
+result = [x for sublist in lists for x in sublist]
+print("з'єднання:", result)
+
+
+#3
+import re
+text = "abcKgJikmHvkKaN"
+result = re.findall(r'[A-Z]+', text)
+print("Рядок з великих букв:", result)
+
+
+#4
+from collections import Counter
+numbers = [8, 4, 9, 6, 4, 5, 9]
+result = sorted(numbers, key=lambda x: (-x, Counter(numbers)[x]))
+print("Сортування за спаданням та частотою:", result)
+
+
+#5
+s = [4, 2, 6]
+d = [6, 9, 3]
+result = [x if x > y else y for x, y in zip(s, d)]
+print("об'єднано два списки:", result)
+
+
+#6
+
+dictionaries = [{'j' : 6, 'v' : 7}, {'r' : 9, 'm' : 2}]
+keys = set(k for d in dictionaries for k in d)
+result = {k: sum(d.get(k, 0) for d in dictionaries) for k in keys}
+print(" сума значень у словнику за ключем:", result)
+
+
+#7
+text = [2, 6, 7]
+threshold = 4
+substitute = 9
+result = [x if x <= threshold else substitute for x in text]
+print("після змінення:", result)
+
+
+#8
+lines = ["hello", "good morning", "name", "w"]
+X = 4
+result = sum(1 for line in lines if len(line) > X)
+print("к-сть рядків довших за", X, ":", result)
+
+
+#9
+a = ["m3", "m5", "m8"]
+b = ["n2", "n6", "n7"]
+result = [x for pair in zip(a, b) for x in pair]
+print("об'єднання елементів:", result)
+
+
+#10
+numbers = [4, 9, 3, 5]
+X, Y = 5, 6
+result = [x * Y if x > X else x for x in numbers]
+print("Якщо більше за", X, "помножити на", Y, ":", result)
