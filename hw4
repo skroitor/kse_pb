@@ -1,0 +1,54 @@
+import random
+
+words = ['apple', 'bread', 'candy', 'dream', 'eagle', 'flame', 'grape', 'house', 'input', 'joker']
+tries = 6
+
+def pick_word():
+    return random.choice(words)
+
+def get_guess(length, attempt):
+    while True:
+        guess = input(f"Спроба {attempt}/{tries}. Введи слово з {length} літер: ").lower()
+        if len(guess) != length:
+            print("Неправильна довжина. Спробуйте ще раз.")
+        elif guess not in words:
+            print("Такого слова не існує. Спробуйте ще раз.")
+        else:
+            return guess
+
+def check_guess(secret, guess):
+    result = []
+    for i in range(len(secret)):
+        if guess[i] == secret[i]:
+            result.append(f"[{guess[i].upper()}]")
+        elif guess[i] in secret:
+            result.append(f"({guess[i]})")
+        else:
+            result.append(guess[i])
+    return result
+
+def start_game(secret):
+    tries = 6
+    for attempt in range(1, tries + 1):
+        guess = get_guess(len(secret), attempt)
+        result = check_guess(secret, guess)
+        print("Результат:", result)
+        if guess == secret:
+            print("Правильно! Ти вгадав(ла) слово.")
+            return True
+    print(f"Ти програв(ла)! Слово було: {secret}")
+    return False
+    
+
+
+def main():
+        while True:
+            secret = pick_word()
+            start_game(secret)
+            again = input("Гратимеш ще раз? (x/n): ").lower()
+            if again != 'x':
+                print("Дякую за гру!")
+                break
+
+if __name__ == "__main__":
+    main()
