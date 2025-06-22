@@ -1,0 +1,38 @@
+#1
+import requests
+import pandas as pd 
+
+key = 'ced408cd021b4ff188d95620252206'
+city = "Kyiv"
+days = 7
+url = f"http://api.weatherapi.com/v1/forecast.json?key=ed408cd021b4ff188d95620252206&q=Kyiv&days=7&aqi=no&alerts=no"
+response = requests.get(url)
+data = response.json()
+
+#2
+df = pd.DataFrame([
+    {
+        'дата і час': hour['time'],
+        'температура': hour['temp_c'],
+        'швидкість вітру': hour['wind_kph']
+    }
+    for day in data['forecast']['forecastday']
+    for hour in day['hour']
+])
+df['дата і час'] = pd.to_datetime(df['дата і час'])
+
+#3a
+
+df_3days = df[df['дата і час']< (df['дата і час'].min() + pd.Timedelta(days=3))]
+min_temp = df_3days['температура']. min()
+print(f"мінімум: {min_temp} C")
+max_temp = df_3days['температура'].max()
+print(f"максимум: {max_temp} C")
+mean_temp = df_3days['температура'].mean()
+print(f"середня: {mean_temp} C")
+
+#3b
+mean_wind = df['швидкість вітру'].mean()
+print(f"середня швидкість: {mean_wind:.2f} км/год")
+windy_hours = df[df['швидкість вітру'] > mean_wind].shape[0]
+print(f"годин, коли вітер більше середнього: {windy_hours}")
