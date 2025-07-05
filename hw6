@@ -1,0 +1,32 @@
+#1
+pip install yfinance pandas
+
+import yfinance as yf 
+import pandas as pd
+crypto = 'BTC-USD'
+data = yf.download(crypto, start='2023-01-09', end='2024-11-23')
+data = data[['open', 'high', 'low', 'close', 'volume']]
+print(data.head())
+
+#2
+data = data.dropna()
+data['short_avg'] = data['close'].rolling(window=20).mean()
+data['long_avg'] = data['close'].rolling(window=50).mean()
+data = data.dropna()
+print(data[['close', 'short_avg', 'long_avg']].head())
+
+#3
+data['signal'] = 0
+data.loc[data['short_avg'] > data['long_avg'], 'signal'] = 1
+data.loc[data['short_avg'] < data['long_avg'], 'signal'] = -1
+data['position'] = data['signal'].shift(1)
+
+#4
+data['price_change'] = data['close'].pct_change()
+data['strategy_gain'] = data['position'] * data['price_change']
+
+#5
+data['market_total'] = (1 + data['price_change']).cumprod()
+data['strategy_total'] = (1 + data['strategy_gain']).cumprod()
+final_profit = data['strategy_total'].iloc[-1] - 1
+print(f"Прибуток стратегії: {final_profit:.2%}")
